@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 class Battery(ABC):
@@ -11,22 +12,20 @@ class SpindlerBattery(Battery):
 
     time_between_service = 2
     
-    def __init__(self, last_service_date, current_date):
+    def __init__(self, last_service_date):
         self.last_service_date = last_service_date
-        self.current_date = current_date
 
     def needs_service(self):
-        return self.time_between_service <= relativedelta(
-            self.current_date, self.last_service_date).years
+        return self.time_between_service < relativedelta(
+            datetime.today().date(), self.last_service_date).years
 
 class NubbinBattery(Battery):
 
     time_between_service = 4
     
-    def __init__(self, last_service_date, current_date):
-        self.last_service_date = self
-        self.current_date = current_date
+    def __init__(self, last_service_date):
+        self.last_service_date = last_service_date
 
     def needs_service(self):
-        return self.time_between_service <= relativedelta(
-            self.current_date, self.last_service_date).years
+        return self.time_between_service < relativedelta(
+            datetime.today().date(), self.last_service_date).years
