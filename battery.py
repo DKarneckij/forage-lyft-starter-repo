@@ -10,7 +10,7 @@ class Battery(ABC):
 
 class SpindlerBattery(Battery):
 
-    time_between_service = 2
+    time_between_service = 3
     
     def __init__(self, last_service_date):
         self.last_service_date = last_service_date
